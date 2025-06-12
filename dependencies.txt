@@ -1,2 +1,11 @@
 pip install flask
 pip install flask-sqlalchemy
+
+python
+from market import db
+...     db.create_all()
+...     from market import Item
+...     item1 = Item(name='Iphone 15', price=32000, barcode='21212121', description='Smartphone de alta gama')
+...     db.session.add(item1)
+...     db.session.commit()
+...     Item.query.all()
