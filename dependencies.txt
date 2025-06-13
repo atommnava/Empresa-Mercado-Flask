@@ -9,3 +9,8 @@ from market import db
 ...     db.session.add(item1)
 ...     db.session.commit()
 ...     Item.query.all()
+
+#@app.route("/about/<usuario>")
+#def about_page(usuario):
+#    return f"<h1>Esta es la pagina ABOUT de {usuario}</h1>"
+
