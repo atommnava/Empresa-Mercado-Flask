@@ -9,8 +9,35 @@ from market import db
 ...     db.session.add(item1)
 ...     db.session.commit()
 ...     Item.query.all()
+[<Item 1>]
 
 #@app.route("/about/<usuario>")
 #def about_page(usuario):
 #    return f"<h1>Esta es la pagina ABOUT de {usuario}</h1>"
+
+
+python
+>>> from market.models import db
+>>> db.drop_all()
+>>> db.create_all()
+>>> from market.models import User, Item
+>>> u1 = User(username='Atom', password_hash='atom123', email_address='atom@gmail.com')
+<OPTIONAL>
+>>> import os
+>>> os.system('cls')
+</OPTIONAL
+>>> db.session.add(u1)
+>>> db.session.commit()
+>>> User.query.all()
+[<User 1>]
+>>> i1 = Item(name='IPhone 15', price=32000, barcode='32214354', description='Iphone 15 256gb')
+>>> db.session.add(i1)
+>>> db.session.commit()
+>>> i2 = Item(name='Macbook Air', price=45000, barcode='32218194', description='Macbook Air 15 M4 512gb')
+>>> db.session.add(i2)
+>>> db.session.commit()
+
+>>> item1.owner = User.query.filter_by(name='Atom').first().id
+>>> db.session.rollback()
+
 
