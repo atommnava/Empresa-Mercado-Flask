@@ -1,3 +1,5 @@
+from sqlalchemy.orm import backref
+
 from market import db
 
 class User(db.Model):
@@ -19,7 +21,8 @@ class User(db.Model):
         nullable=False,
         default=1500
     )
-    items = db.relationship('Item', backref='owned_user')
+    # No es una columna. Referencia trasera para el modelo
+    items = db.relationship('Item', backref='owned_user', lazy=True)
 
 class Item(db.Model):
     id = db.Column(db.Integer(),
@@ -39,6 +42,6 @@ class Item(db.Model):
         nullable=False,
         unique=True
     )
-
+    owner = db.Column(db.Integer(), db.ForeignKey('user.id'))
     def __repr__(self):
         return f'Item {self.name}'
