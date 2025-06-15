@@ -27,4 +27,8 @@ def register_page():
         db.session.commit()
         return redirect(url_for('market_page'))
 
+    if form.errors != {}:
+        for error in form.errors.values():
+            print(f"err_msg: {error}")
+
     return render_template('register.html', form=form)
