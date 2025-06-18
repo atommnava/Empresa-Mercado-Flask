@@ -9,15 +9,20 @@ class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):
         user = User.query.filter_by(username=username_to_check.data).first()
         if user:
-            raise ValidationError(f"¡El usuario {user} ya existe! Por favor, intenta otro nombre.")
+            raise ValidationError(f"¡El usuario ya existe! Por favor, intenta otro nombre.")
 
     def validate_email_address(self, email_address_to_check):
-        email_address = User.query.filter_by(email_address=email_address_to_check.data)
+        email_address = User.query.filter_by(email_address=email_address_to_check.data).first()
         if email_address:
-            raise ValidationError(f"¡El correo {email_address} ya está registrado! Por favor, intenta otro correo.")
+            raise ValidationError(f"¡El correo ya está registrado! Por favor, intenta otro correo.")
 
     username = StringField(label='Nombre de Usuario:', validators=[Length(min=2, max=32), DataRequired()])
     email_address = StringField(label='Corréo electrónico:', validators=[Email(), DataRequired()])
     password1 = PasswordField(label='Contraseña:', validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(label='Confirmar Contraseña:', validators=[EqualTo('password1'), DataRequired()])
     submit = SubmitField(label='¡Quiero ser MiMercado!')
+
+class LoginForm(FlaskForm):
+    username = StringField(label='Nombre de Usuario:', validators=[DataRequired()])
+    password = PasswordField(label='Contraseña:', validators=[DataRequired()])
+    submit = SubmitField(label='Ingresar')
