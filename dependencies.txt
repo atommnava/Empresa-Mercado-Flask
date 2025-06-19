@@ -4,6 +4,7 @@ pip install flask-wtf
 pip install wtforms
 pip install email_validator
 pip install flask-bcrypt
+pip install flask_login
 
 python
 from market import db
