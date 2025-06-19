@@ -36,4 +36,9 @@ def register_page():
 @app.route('/login', methods=['GET','POST'])
 def login_page():
     form = LoginForm()
+    if form.validate_on_submit():
+        attempted_user = User.query.get(form.username.data).first()
+        if attempted_user:
+
+
     return render_template('login.html', form=form)
