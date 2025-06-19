@@ -1,5 +1,6 @@
-from market import app
+from flask_login import login_user
 from flask import render_template, redirect, url_for, flash
+from market import app
 from market.models import Item, User
 from market.forms import RegisterForm, LoginForm
 from market import db
@@ -38,7 +39,7 @@ def login_page():
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = User.query.get(form.username.data).first()
-        if attempted_user:
-
+        if attempted_user and attempted_user.check_password_correction(attempted_user=form.password.data):
+            login_user(attempted_user)
 
     return render_template('login.html', form=form)
