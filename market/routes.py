@@ -7,7 +7,7 @@ from market import db
 
 @app.route('/')
 @app.route('/hogar')
-def home():
+def home_page():
     return render_template('home.html')
 
 @app.route('/mercado')
