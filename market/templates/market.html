@@ -4,31 +4,43 @@
 {% endblock %}
 
 {% block content%}
-<table class="table table-hover table-dark">
-  <thead>
-  <tr>
-    <!-- Your Columns HERE -->
-    <th scope="col">ID</th>
-    <th scope="col">Nombre</th>
-    <th scope="col">Código Barra</th>
-    <th scope="col">Precio</th>
-    <th scope="col">Opciones</th>
-  </tr>
-  </thead>
-  <tbody>
-  <!-- Your rows inside the table HERE: -->
-  {% for item in items %}
-  <tr>
-    <td>{{ item.id }}</td>
-    <td>{{ item.name }}</td>
-    <td>{{ item.barcode }}</td>
-    <td>{{ item.price }}$</td>
-    <td>
-      <button class="btn btn-outline btn-info">+ Info</button>
-      <button class="btn btn-outline btn-success">Comprar</button>
-    </td>
-  </tr>
-  {% endfor %}
-  </tbody>
-</table>
+<div class="row" style="margin-top: 20px; margin-left: 10px;">
+  <div class="col-8">
+    <h2>Items Disponibles</h2>
+    <p>Haz Click en alguno de los Items para empezar a Comprar!</p>
+    <table class="table table-hover table-dark">
+      <thead>
+      <tr>
+        <!-- Your Columns HERE -->
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Código Barra</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Opciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Your rows inside the table HERE: -->
+      {% for item in items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.barcode }}</td>
+        <td>{{ item.price }}$</td>
+        <td>
+          <button class="btn btn-outline btn-info">+ Info</button>
+          <button class="btn btn-outline btn-success">Comprar</button>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-4">
+    <h2>Tus Ordenes</h2>
+    <p>Haz Click en alguno de los Items para retornarlo al mercado.</p>
+    <br>
+  </div>
+</div>
+
 {% endblock %}
