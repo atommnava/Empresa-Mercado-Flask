@@ -1,4 +1,4 @@
-from flask_login import login_user
+from flask_login import login_user, logout_user
 from flask import render_template, redirect, url_for, flash
 from market import app
 from market.models import Item, User
@@ -49,3 +49,9 @@ def login_page():
             flash('El nombre de usuario y/o la contraseña no coinciden! Por favor, intenta de nuevo', category='danger')
 
     return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout_page():
+    logout_user()
+    flash('Cerraste la sesión!', category='info')
+    return redirect(url_for('home_page'))
