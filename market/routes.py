@@ -22,7 +22,7 @@ def register_page():
         user_to_create = User(
             username=form.username.data,
             email_address=form.email_address.data,
-            password=form.password1.data # la variable password es la contraseña del metodo password en 'models.py'. Linea 13
+            password=form.password1.data  # La variable password es la contraseña del metodo password en 'models.py'.
         )
         db.session.add(user_to_create)
         db.session.commit()
@@ -34,16 +34,18 @@ def register_page():
 
     return render_template('register.html', form=form)
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
-        attempted_user = User.query.get(form.username.data).first()
-        if attempted_user and attempted_user.check_password_correction(attempted_user=form.password.data):
+        attempted_user = User.query.filter_by(username=form.username.data).first()
+        if attempted_user and attempted_user.check_password_correction(
+                attempted_password=form.password.data
+        ):
             login_user(attempted_user)
-            flash(f"¡Ingresaste! Iniciaste sesión con: {attempted_user.username}", category='success')
+            flash(f'Exito! Ingresaste como: {attempted_user.username}', category='success')
             return redirect(url_for('market_page'))
         else:
-            flash(f"El nombre de usuario y/o contraseña son incorrectos. Intente de nuevo.", category='danger')
+            flash('El nombre de usuario y/o la contraseña no coinciden! Por favor, intenta de nuevo', category='danger')
 
     return render_template('login.html', form=form)
