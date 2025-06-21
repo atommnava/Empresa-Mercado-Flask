@@ -49,9 +49,17 @@ tabindex="-1"
                 </button>
             </div>
             <div class="modal-body">
-                ¿Deseas Adquirir {{ item.name }} por ${{ item.price }}?
                 <form method="POST">
-
+                    {{ purchase_form.hidden_tag() }}
+                    <h4 class="text-center">
+                        ¿Deseas Adquirir {{ item.name }} por ${{ item.price }}?
+                    </h4>
+                    <br>
+                    <h6 class="text-center">
+                        Al hacer Click en "Pagar" vas a Adquirir este Item.
+                    </h6>
+                    <br>
+                    {{ purchase_form.submit(class="btn btn-outline-success btn-block") }}
                 </form>
             </div>
             <div class="modal-footer">
