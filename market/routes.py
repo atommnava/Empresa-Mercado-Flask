@@ -10,10 +10,12 @@ from market import db
 def home_page():
     return render_template('home.html')
 
-@app.route('/mercado')
+@app.route('/mercado',  methods=['GET', 'POST'])
 @login_required
 def market_page():
     purchase_form = PurchaseItemForm()
+    if purchase_form.validate_on_submit():
+        print(purchase_form['purchased_item'])
     items = Item.query.all()
     return render_template('market.html', items=items, purchase_form=purchase_form)
 

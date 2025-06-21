@@ -59,6 +59,7 @@ tabindex="-1"
                         Al hacer Click en "Pagar" vas a Adquirir este Item.
                     </h6>
                     <br>
+                    <input id="purchase_item" name="purchase_item" type="hidden" value="{{ item.name }}">
                     {{ purchase_form.submit(class="btn btn-outline-success btn-block") }}
                 </form>
             </div>
