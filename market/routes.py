@@ -18,10 +18,14 @@ def market_page():
         purchased_item = request.form.get('purchased_item')
         p_item_object = Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
-            p_item_object.owner = current_user.id
-            current_user.budget -= p_item_object.price
-            db.session.commit()
-            flash(f"¡Tu Pago se realizo con Éxito! {p_item_object.name} por ${p_item_object.price}")
+            if current_user.can_purchase(p_item_object):
+                p_item_object.owner = current_user.id
+                current_user.budget -= p_item_object.price
+                db.session.commit()
+                flash(f"¡Tu Pago se realizó con Éxito! Compraste {p_item_object.name} por ${p_item_object.price}", category='success')
+            else:
+                flash(f"No puedes adquirir este Producto porque no tienes suficientes fondos... {p_item_object.name}", category='danger')
+        return redirect(url_for('market_page'))
 
     if request.method == "GET":
         items = Item.query.filter_by(owner=None)
