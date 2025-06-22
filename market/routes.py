@@ -16,6 +16,7 @@ def market_page():
     purchase_form = PurchaseItemForm()
     selling_form = SellItemForm()
     if request.method == "POST":
+        # Comprar Objeto Backend Lógica
         purchased_item = request.form.get('purchased_item')
         p_item_object = Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
@@ -24,6 +25,16 @@ def market_page():
                 flash(f"¡Tu Pago se realizó con Éxito! Compraste {p_item_object.name} por ${p_item_object.price}", category='success')
             else:
                 flash(f"No puedes adquirir este Producto porque no tienes suficientes fondos... {p_item_object.name}", category='danger')
+        # Vender Objeto Backend Lógica
+        sold_item = request.form.get('sold_item')
+        s_item_object = Item.query.filter_by(name=sold_item).first()
+        if s_item_object:
+            if current_user.can_sell(s_item_object):
+                s_item_object.sell(current_user)
+                flash(f"¡Orden realizada! Vendiste {s_item_object.name} por ${s_item_object.price}", category='success')
+            else:
+                flash(f"¡Algo sucedió! Tu orden de {s_item_object.name} no se pudo realizar...", category='danger')
+
         return redirect(url_for('market_page'))
 
     if request.method == "GET":
