@@ -19,9 +19,7 @@ def market_page():
         p_item_object = Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
             if current_user.can_purchase(p_item_object):
-                p_item_object.owner = current_user.id
-                current_user.budget -= p_item_object.price
-                db.session.commit()
+                p_item_object.buy(current_user)
                 flash(f"¡Tu Pago se realizó con Éxito! Compraste {p_item_object.name} por ${p_item_object.price}", category='success')
             else:
                 flash(f"No puedes adquirir este Producto porque no tienes suficientes fondos... {p_item_object.name}", category='danger')
