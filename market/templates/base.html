@@ -36,7 +36,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Bienvenido, {{ current_user.username }}</a>
+          <a class="nav-link">Bienvenido, <super style="foreground-color: white;">{{ current_user.username }}</super></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href=" {{ url_for('logout_page') }} ">Cerrar sesión</a>
